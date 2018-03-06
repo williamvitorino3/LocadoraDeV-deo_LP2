@@ -1,0 +1,33 @@
+Funcionario: OK
+- Id
+- Nome
+- Cpf
+
+Cliente: OK
+- Id
+- Nome
+- Telefone
+
+Filme: OK
+- Id
+- Nome
+
+FilmeLocação: OK
+- Id
+- Filme
+- Locação
+- Valor
+
+Locação: OK
+- Id
+- Data
+- Cliente
+- Funcionario
+- FilmeLocação
+
+Devolução: OK
+- Id
+- DataEntrega
+- Cliente
+- Filme
+- Funcionario
