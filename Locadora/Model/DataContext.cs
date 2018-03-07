@@ -13,5 +13,9 @@ namespace WebApi.Models
     public DbSet<Locacao> Locacoes { get; set; }
     public DbSet<Devolucao> Devolucoes { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+      optionsBuilder.UseSqlServer("server=localhost;database=LocadoraLPII;Trusted_Connection=True;");
+    }
   }
 }
