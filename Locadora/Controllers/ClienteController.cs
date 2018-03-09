@@ -11,10 +11,13 @@ namespace Locadora.Controllers
     [Route("api/[controller]")]
     public class ClienteController : Controller
     {
+        private static DataContext api;
+
         // GET api/cliente
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            api = new DataContext();
             return new string[] { "value1", "value2" };
         }
 
