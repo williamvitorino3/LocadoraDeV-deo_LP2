@@ -11,7 +11,7 @@ using WebApi.Models;
 namespace Locadora.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180309112232_InitialCreate")]
+    [Migration("20180309115554_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

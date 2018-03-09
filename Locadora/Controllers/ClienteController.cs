@@ -11,14 +11,19 @@ namespace Locadora.Controllers
     [Route("api/[controller]")]
     public class ClienteController : Controller
     {
-        private static DataContext api;
+        private DataContext api;
+
+        public ClienteController(DataContext dataContext)
+        {
+            this.api = dataContext;
+        }
+
 
         // GET api/cliente
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Cliente> Get()
         {
-            api = new DataContext();
-            return new string[] { "value1", "value2" };
+            return this.api.Set<Cliente>();
         }
 
         // GET api/values/5
@@ -30,8 +35,14 @@ namespace Locadora.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Cliente value)
         {
+            if (value == null)
+            {
+                return;
+            }
+            this.api.Set<Cliente>().Add(value);
+            this.api.SaveChanges();
         }
 
         // PUT api/values/5

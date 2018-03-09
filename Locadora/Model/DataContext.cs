@@ -3,8 +3,10 @@ namespace WebApi.Models
 {
   public class DataContext : DbContext
   {
-    // public DataContext(DbContextOptions<DataContext> options)
-    // : base(options) {}
+    public DataContext(DbContextOptions<DataContext> options)
+    : base(options) {}
+    public DataContext()
+    {}
 
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Funcionario> Funcionarios { get; set; }
@@ -15,7 +17,8 @@ namespace WebApi.Models
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlServer("server=localhost;database=LocadoraLPII;Trusted_Connection=True;");
+      
+      optionsBuilder.UseSqlServer("Server=localhost;Database=LocadoraLPII;Trusted_Connection=True;");
     }
   }
 }
