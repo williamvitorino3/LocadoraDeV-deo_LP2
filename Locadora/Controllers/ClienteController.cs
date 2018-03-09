@@ -18,7 +18,6 @@ namespace Locadora.Controllers
             this.api = dataContext;
         }
 
-
         // GET api/cliente
         [HttpGet]
         public IEnumerable<Cliente> Get()
@@ -26,35 +25,34 @@ namespace Locadora.Controllers
             return this.api.Set<Cliente>();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Cliente value)
+        public void Post([FromBody]Cliente body)
         {
-            if (value == null)
+            if (body != null)
             {
-                return;
+                this.api.Set<Cliente>().Add(body);
+                this.api.SaveChanges();
             }
-            this.api.Set<Cliente>().Add(value);
-            this.api.SaveChanges();
         }
+
+        // GET api/values/5
+        // [HttpGet("{id}")]
+        // public string Get(int id)
+        // {
+        //     return "value";
+        // }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        // [HttpPut("{id}")]
+        // public void Put(int id, [FromBody]string value)
+        // {
+        // }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        // [HttpDelete("{id}")]
+        // public void Delete(int id)
+        // {
+        // }
     }
 }

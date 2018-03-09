@@ -11,25 +11,37 @@ namespace Locadora.Controllers
     [Route("api/[controller]")]
     public class DevolucaoController : Controller
     {
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private DataContext api;
+
+        public DevolucaoController(DataContext dataContext)
         {
-            return new string[] { "value1", "value2" };
+            this.api = dataContext;
         }
+
+        // GET api/values
+        // [HttpGet]
+        // public IEnumerable<Devolucao> Get()
+        // {
+        //     return this.api.Set<Devolucao>();
+        // }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        // [HttpGet("{id}")]
+        // public string Get(int id)
+        // {
+        //     return "value";
+        // }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        // [HttpPost]
+        // public void Post([FromBody]Devolucao body)
+        // {
+        //     if(body != null)
+        //     {
+        //         this.api.Set<Devolucao>.Add(body);
+        //         this.api.SaveChanges();
+        //     }
+        // }
 
         // PUT api/values/5
         [HttpPut("{id}")]
