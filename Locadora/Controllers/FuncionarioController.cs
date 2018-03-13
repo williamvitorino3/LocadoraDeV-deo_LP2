@@ -37,12 +37,17 @@ namespace Locadora.Controllers
             }
         }
 
-        // GET api/values/5
-        // [HttpGet("{id}")]
-        // public string Get(int id)
-        // {
-        //     return "value";
-        // }
+        [HttpGet("{id}", Name = "GetFuncionario")]
+        public IActionResult GetById(long id)
+        {
+            var item = this.api.Funcionarios.FirstOrDefault(t => t.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+        }
+
 
         // PUT api/values/5
         // [HttpPut("{id}")]
@@ -50,10 +55,16 @@ namespace Locadora.Controllers
         // {
         // }
 
-        // DELETE api/values/5
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        // }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            var todo = this.api.Funcionarios.FirstOrDefault(t => t.Id == id);
+            if(todo == null)
+                return NotFound();
+            
+            this.api.Funcionarios.Remove(todo);
+            this.api.SaveChanges();
+            return new NoContentResult();
+        }
     }
 }

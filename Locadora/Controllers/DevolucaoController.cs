@@ -49,10 +49,16 @@ namespace Locadora.Controllers
         {
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(long id)
         {
+            var todo = this.api.Devolucoes.FirstOrDefault(t => t.Id == id);
+            if(todo == null)
+                return NotFound();
+            
+            this.api.Devolucoes.Remove(todo);
+            this.api.SaveChanges();
+            return new NoContentResult();
         }
     }
 }
