@@ -80,7 +80,7 @@ namespace Locadora.Controllers
             
             this.api.Clientes.Remove(todo);
             this.api.SaveChanges();
-            return new NoContentResult();
+            return new ObjectResult(todo);
         }
     }
 }
