@@ -26,28 +26,26 @@ namespace Locadora.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Cliente body)
+        public IActionResult Post([FromBody]Cliente body)
         {
             if (body != null)
             {
                 this.api.Set<Cliente>().Add(body);
                 this.api.SaveChanges();
+                return new ObjectResult(body);
             }
+            return BadRequest();
         }
 
+        // PUT
         [HttpPut("{id}")]
         public IActionResult Update(long id, [FromBody] Cliente item)
         {
-            if (item == null || item.Id != id)
-                return BadRequest();
-
+            if (item == null) return BadRequest();
             var cliente = this.api.Clientes.FirstOrDefault(t => t.Id == id);
-            if (cliente == null)
-                return NotFound();
-
+            if (cliente == null) return NotFound();
             cliente.Nome = item.Nome;
             cliente.Telefone = item.Telefone;
-
             this.api.Clientes.Update(cliente);
             this.api.SaveChanges();
             return new ObjectResult(cliente);

@@ -18,7 +18,7 @@ namespace WebApi.Models
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       
-      optionsBuilder.UseSqlServer(Configuration.GetConnectionString("StoreDB"));
+      optionsBuilder.UseSqlServer("Server=localhost;Database=LocadoraLPII;Trusted_Connection=True;");
     }
   }
 }

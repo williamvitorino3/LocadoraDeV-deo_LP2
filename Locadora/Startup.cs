@@ -26,9 +26,9 @@ namespace Locadora
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer("Server=localhost;Database=LocadoraLPII;Trusted_Connection=True;"));
-            // services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Locadora"));
             services.AddMvc();
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Locadora"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
