@@ -27,13 +27,15 @@ namespace Locadora.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]FilmeLocacao body)
+        public IActionResult Post([FromBody]FilmeLocacao body)
         {
             if(body != null)
             {
                 this.api.Set<FilmeLocacao>().Add(body);
                 this.api.SaveChanges();
+                return new ObjectResult(body);
             }
+            return NotFound();
         }
 
         [HttpGet("{id}", Name = "GetFilmeLocacao")]
@@ -47,11 +49,22 @@ namespace Locadora.Controllers
             return new ObjectResult(item);
         }
 
-        // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody]string value)
-        // {
-        // }
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, [FromBody] FilmeLocacao item)
+        {
+            if (item == null || item.Id != id)
+                return BadRequest();
+
+            var filmeLocacao = this.api.FilmeLocacoes.FirstOrDefault(t => t.Id == id);
+            if (filmeLocacao == null)
+                return NotFound();
+
+            filmeLocacao = item;
+
+            this.api.FilmeLocacoes.Update(filmeLocacao);
+            this.api.SaveChanges();
+            return new NoContentResult();
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)

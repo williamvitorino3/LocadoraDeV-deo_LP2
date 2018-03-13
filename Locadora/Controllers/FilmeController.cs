@@ -48,11 +48,22 @@ namespace Locadora.Controllers
             return new ObjectResult(item);
         }
 
-        // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody]string value)
-        // {
-        // }
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, [FromBody] Filme item)
+        {
+            if (item == null || item.Id != id)
+                return BadRequest();
+
+            var filme = this.api.Filmes.FirstOrDefault(t => t.Id == id);
+            if (filme == null)
+                return NotFound();
+
+            filme.Nome = item.Nome;
+
+            this.api.Filmes.Update(filme);
+            this.api.SaveChanges();
+            return new NoContentResult();
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)

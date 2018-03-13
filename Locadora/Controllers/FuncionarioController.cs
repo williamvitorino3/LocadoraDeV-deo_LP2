@@ -49,11 +49,23 @@ namespace Locadora.Controllers
         }
 
 
-        // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody]string value)
-        // {
-        // }
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, [FromBody] Funcionario item)
+        {
+            if (item == null || item.Id != id)
+                return BadRequest();
+
+            var funcionario = this.api.Funcionarios.FirstOrDefault(t => t.Id == id);
+            if (funcionario == null)
+                return NotFound();
+
+            funcionario.Nome = item.Nome;
+            funcionario.Cpf = item.Cpf;
+
+            this.api.Funcionarios.Update(funcionario);
+            this.api.SaveChanges();
+            return new NoContentResult();
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)

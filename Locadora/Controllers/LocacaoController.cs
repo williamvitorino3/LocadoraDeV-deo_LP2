@@ -47,11 +47,22 @@ namespace Locadora.Controllers
             return new ObjectResult(item);
         }
 
-        // PUT api/values/5
-        // [HttpPut("{id}")]
-        // public void Put(int id, [FromBody]string value)
-        // {
-        // }
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, [FromBody] Locacao item)
+        {
+            if (item == null || item.Id != id)
+                return BadRequest();
+
+            var locacao = this.api.Locacoes.FirstOrDefault(t => t.Id == id);
+            if (locacao == null)
+                return NotFound();
+
+            locacao = item;
+
+            this.api.Locacoes.Update(locacao);
+            this.api.SaveChanges();
+            return new NoContentResult();
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)

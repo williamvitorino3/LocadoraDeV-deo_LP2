@@ -35,6 +35,24 @@ namespace Locadora.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, [FromBody] Cliente item)
+        {
+            if (item == null || item.Id != id)
+                return BadRequest();
+
+            var cliente = this.api.Clientes.FirstOrDefault(t => t.Id == id);
+            if (cliente == null)
+                return NotFound();
+
+            cliente.Nome = item.Nome;
+            cliente.Telefone = item.Telefone;
+
+            this.api.Clientes.Update(cliente);
+            this.api.SaveChanges();
+            return new ObjectResult(cliente);
+        }
+
         [HttpGet("{id}", Name = "GetCliente")]
         public IActionResult GetById(long id)
         {
